@@ -43,6 +43,7 @@ public final class ReelGuardService extends AccessibilityService {
     private final Runnable captureTask = this::beginCapture;
     private final Runnable inactivity = this::endSession;
     private final Runnable configuration = this::onConfigurationEdited;
+    private final Runnable enforcementMode = this::onEnforcementEdited;
 
     private Repository repository;
     private ExecutorService captureWorker;
@@ -75,6 +76,11 @@ public final class ReelGuardService extends AccessibilityService {
         if (lastEvent >= 0) schedule(0);
     }
 
+    private void onEnforcementEdited() {
+        enforcer.clear();
+        schedule(0);
+    }
+
     @Override protected void onServiceConnected() {
         super.onServiceConnected();
         if (captureWorker != null) return;
@@ -84,6 +90,7 @@ public final class ReelGuardService extends AccessibilityService {
         captureWorker = Executors.newSingleThreadExecutor();
         captureWorker.execute(this::loadCatalog);
         repository.subscribeConfiguration(configuration);
+        repository.subscribeEnforcement(enforcementMode);
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
@@ -154,7 +161,9 @@ public final class ReelGuardService extends AccessibilityService {
         }
         inFlight = true;
         long ticket = revision;
-        captureWorker.execute(() -> {
+        long enforcementTicket = repository.enforcementRevision();
+        ExecutorService worker = captureWorker;
+        worker.execute(() -> {
             Observation found;
             try {
                 found = inspect();
@@ -163,7 +172,9 @@ public final class ReelGuardService extends AccessibilityService {
                 found = null;
             }
             Observation observation = found;
-            main.post(() -> accept(ticket, observation));
+            main.post(() -> {
+                if (captureWorker == worker) accept(ticket, enforcementTicket, observation);
+            });
         });
     }
 
@@ -190,9 +201,12 @@ public final class ReelGuardService extends AccessibilityService {
         }
     }
 
-    private void accept(long ticket, Observation observation) {
-        if (captureWorker == null) return;
-        if (ticket != revision || lastEvent < 0) {
+    private boolean isCurrent(long ticket, long enforcementTicket) {
+        return ticket == revision && enforcementTicket == repository.enforcementRevision() && lastEvent >= 0;
+    }
+
+    private void accept(long ticket, long enforcementTicket, Observation observation) {
+        if (!isCurrent(ticket, enforcementTicket)) {
             finishCapture(0);
             return;
         }
@@ -204,22 +218,28 @@ public final class ReelGuardService extends AccessibilityService {
             return;
         }
         health.record(observation.state, observation.version, observation.elapsed);
+        ExecutorService worker = captureWorker;
         repository.process(observation.state, observation.owner.id, observation.wall, observation.elapsed,
                 evaluation -> {
-                    if (captureWorker == null) return;
-                    if (ticket != revision || lastEvent < 0 || !owns(observation.owner)) {
+                    if (captureWorker != worker) return;
+                    if (!isCurrent(ticket, enforcementTicket) || !owns(observation.owner)) {
                         enforcer.clear();
                         finishCapture(0);
                         return;
                     }
-                    if (evaluation.decision.action == Action.BLOCK) {
-                        final Owner owner = observation.owner;
-                        enforcer.block(evaluation.decision, owner.id, owner.bounds, () -> owns(owner),
-                                () -> schedule(0));
-                    } else {
-                        enforcer.allow();
-                        if (evaluation.showWarning && enforcer.warn(evaluation.decision, observation.owner.bounds))
-                            repository.markWarning(evaluation.decision.key);
+                    if (repository.permitsEnforcement(enforcementTicket)) {
+                        if (evaluation.decision.action == Action.BLOCK) {
+                            Owner owner = observation.owner;
+                            enforcer.block(evaluation.decision, owner.id, owner.bounds,
+                                    () -> isCurrent(ticket, enforcementTicket) &&
+                                            repository.permitsEnforcement(enforcementTicket) && owns(owner),
+                                    () -> schedule(0));
+                        } else {
+                            enforcer.allow();
+                            if (evaluation.showWarning &&
+                                    enforcer.warn(evaluation.decision, observation.owner.bounds))
+                                repository.markWarning(evaluation.decision.key);
+                        }
                     }
                     long age = SystemClock.elapsedRealtime() - observation.elapsed;
                     long next = enforcer.isBlocked() ? DEBOUNCE_MS : Math.max(1, evaluation.nextConfirmation - age);
@@ -230,7 +250,8 @@ public final class ReelGuardService extends AccessibilityService {
                     }
                     finishCapture(next);
                 }, () -> {
-                    if (enforcer != null) enforcer.clear();
+                    if (captureWorker != worker) return;
+                    enforcer.clear();
                     finishCapture(1000);
                 });
     }
@@ -265,15 +286,18 @@ public final class ReelGuardService extends AccessibilityService {
         if (platform == null) return null;
         List<AccessibilityWindowInfo> windows = getWindows();
         try {
+            Owner owner = null;
             for (AccessibilityWindowInfo window : windows) {
-                if (window.getId() != id || window.getType() != AccessibilityWindowInfo.TYPE_APPLICATION ||
-                        !window.isFocused()) continue;
-                if (Build.VERSION.SDK_INT >= 33 && window.getDisplayId() != android.view.Display.DEFAULT_DISPLAY) return null;
+                if (!window.isFocused() || (Build.VERSION.SDK_INT >= 33 &&
+                        window.getDisplayId() != android.view.Display.DEFAULT_DISPLAY)) continue;
+                if (window.getType() == AccessibilityWindowInfo.TYPE_SYSTEM) return null;
+                if (window.getId() != id || window.getType() != AccessibilityWindowInfo.TYPE_APPLICATION) continue;
                 Rect rect = new Rect();
                 window.getBoundsInScreen(rect);
-                if (!rect.isEmpty()) return new Owner(platform, id, new Bounds(rect.left, rect.top, rect.right, rect.bottom));
+                if (!rect.isEmpty()) owner = new Owner(platform, id,
+                        new Bounds(rect.left, rect.top, rect.right, rect.bottom));
             }
-            return null;
+            return owner;
         } finally {
             if (Build.VERSION.SDK_INT < 33) for (AccessibilityWindowInfo window : windows) recycleWindow(window);
         }
@@ -311,6 +335,7 @@ public final class ReelGuardService extends AccessibilityService {
         connected = false;
         if (repository != null) {
             repository.unsubscribeConfiguration(configuration);
+            repository.unsubscribeEnforcement(enforcementMode);
             repository.changed();
         }
     }

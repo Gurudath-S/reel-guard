@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">ReelGuard</string>
+    <string name="enforcement_label">ReelGuard limits</string>
+    <string name="enforcement_off">Limits off. Usage is still tracked.</string>
+    <string name="enforcement_disconnected">Tracking resumes when the accessibility service connects.</string>
+    <string name="enforcement_error">Couldn’t change ReelGuard limits. Try again.</string>
     <string name="service_description">Recognizes reels and Shorts in Instagram and YouTube, tracks usage locally, and can leave those screens when a limit is reached.</string>
     <style name="ReelGuardTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
         <item name="android:colorAccent">#315F4C</item>

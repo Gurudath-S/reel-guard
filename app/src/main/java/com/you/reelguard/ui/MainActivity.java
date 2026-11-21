@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.you.reelguard.R;
 import com.you.reelguard.data.Repository;
 import com.you.reelguard.debug.DebugTools;
@@ -32,12 +33,14 @@ public final class MainActivity extends Activity {
     private final int[] minuteIds = {R.id.minutes_0, R.id.minutes_1, R.id.minutes_2, R.id.minutes_3};
     private final int[] groupIds = {R.id.cap_group_0, R.id.cap_group_1, R.id.cap_group_2, R.id.cap_group_3};
     private final Runnable refresh = this::load;
+    private final Runnable refreshEnforcement = this::renderEnforcement;
     private Repository repository;
     private Repository.Dashboard dashboard;
     private int resetMinute = 240;
     private boolean started;
     private boolean initialized;
     private boolean saving;
+    private boolean renderingEnforcement;
     private long request;
 
     @Override public void onCreate(Bundle saved) {
@@ -59,6 +62,13 @@ public final class MainActivity extends Activity {
         });
         toggle(R.id.separate).setOnCheckedChangeListener((view, checked) -> renderScope());
         toggle(R.id.swipe).setOnCheckedChangeListener((view, checked) -> renderScope());
+        toggle(R.id.enforcement).setOnCheckedChangeListener((view, checked) -> {
+            if (renderingEnforcement) return;
+            repository.setEnforcementEnabled(checked, success -> {
+                if (!success && !isDestroyed())
+                    Toast.makeText(this, R.string.enforcement_error, Toast.LENGTH_SHORT).show();
+            });
+        });
         DebugTools.bind(this, findViewById(R.id.debug));
         renderScope();
         renderReset();
@@ -68,6 +78,7 @@ public final class MainActivity extends Activity {
         super.onStart();
         started = true;
         repository.subscribe(refresh);
+        repository.subscribeEnforcement(refreshEnforcement);
     }
 
     @Override protected void onResume() {
@@ -78,6 +89,7 @@ public final class MainActivity extends Activity {
     @Override protected void onStop() {
         started = false;
         repository.unsubscribe(refresh);
+        repository.unsubscribeEnforcement(refreshEnforcement);
         super.onStop();
     }
 
@@ -89,6 +101,7 @@ public final class MainActivity extends Activity {
 
     private void load() {
         renderStatus();
+        renderEnforcement();
         findViewById(R.id.notifications).setVisibility(Build.VERSION.SDK_INT >= 33 &&
                 checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
                 ? View.VISIBLE : View.GONE);
@@ -138,6 +151,20 @@ public final class MainActivity extends Activity {
         }
         text(R.id.status).setText(ReelGuardService.isConnected() ? "Service connected" :
                 enabled ? "Service enabled · waiting for connection" : "Service disabled");
+    }
+
+    private void renderEnforcement() {
+        boolean enabled = repository.enforcementEnabled();
+        Switch control = toggle(R.id.enforcement);
+        renderingEnforcement = true;
+        control.setChecked(enabled);
+        renderingEnforcement = false;
+        control.setEnabled(!repository.enforcementPending());
+
+        TextView summary = text(R.id.enforcement_summary);
+        boolean connected = ReelGuardService.isConnected();
+        summary.setVisibility(connected && enabled ? View.GONE : View.VISIBLE);
+        summary.setText(connected ? R.string.enforcement_off : R.string.enforcement_disconnected);
     }
 
     private void openSettings() {

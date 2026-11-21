@@ -25,6 +25,7 @@ public final class OverlayEnforcer {
     private View shown;
     private boolean blocked;
     private int attemptedOwner = -1;
+    private BooleanSupplier validBlock;
     private final Runnable expireBanner = this::clearWarning;
 
     public OverlayEnforcer(AccessibilityService service, Handler handler) {
@@ -46,13 +47,16 @@ public final class OverlayEnforcer {
     }
 
     public void block(Decision decision, int windowId, Bounds bounds,
-                      BooleanSupplier validOwner, Runnable reconcile) {
-        if (attemptedOwner == windowId) return;
+                      BooleanSupplier validAction, Runnable reconcile) {
+        if (attemptedOwner == windowId) {
+            if (validAction.getAsBoolean()) validBlock = validAction;
+            return;
+        }
         clear();
-        if (!validOwner.getAsBoolean()) return;
+        if (!validAction.getAsBoolean()) return;
         attemptedOwner = windowId;
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-        if (!validOwner.getAsBoolean()) {
+        if (!validAction.getAsBoolean()) {
             reconcile.run();
             return;
         }
@@ -64,9 +68,12 @@ public final class OverlayEnforcer {
                 DateFormat.getTimeFormat(service).format(new Date(decision.reset)));
         Button close = shield.findViewById(R.id.close_app);
         close.setOnClickListener(view -> {
-            if (validOwner.getAsBoolean() && service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME)) clear();
+            if (shown != shield) return;
+            if (validBlock.getAsBoolean() && service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME))
+                clear();
             reconcile.run();
         });
+        validBlock = validAction;
         blocked = attach(shield, bounds, true);
         reconcile.run();
     }
@@ -111,6 +118,7 @@ public final class OverlayEnforcer {
         shown = null;
         attemptedOwner = -1;
         blocked = false;
+        validBlock = null;
     }
 
     private static String message(Decision decision) {

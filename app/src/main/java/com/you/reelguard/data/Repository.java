@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 
 public final class Repository {
     public static final class Dashboard {
@@ -63,13 +64,18 @@ public final class Repository {
     private final WhitelistStore whitelist;
     private final Set<Runnable> observers = new HashSet<>();
     private final Set<Runnable> configurationObservers = new HashSet<>();
+    private final Set<Runnable> enforcementObservers = new HashSet<>();
+    private final EnforcementMode enforcement;
     private final EnumMap<Platform, String> health = new EnumMap<>(Platform.class);
     private final PolicyEngine policy = new PolicyEngine();
     private final CounterEngine counter = new CounterEngine();
+    private boolean savedEnforcementEnabled;
     private long restoredWindow = Long.MIN_VALUE;
 
     private Repository(Context context) {
         prefs = new Prefs(context);
+        savedEnforcementEnabled = prefs.enforcementEnabled();
+        enforcement = new EnforcementMode(savedEnforcementEnabled);
         db = new EventLogDb(context);
         whitelist = new WhitelistStore(prefs);
     }
@@ -83,6 +89,50 @@ public final class Repository {
     public void unsubscribe(Runnable observer) { observers.remove(observer); }
     public void subscribeConfiguration(Runnable observer) { configurationObservers.add(observer); }
     public void unsubscribeConfiguration(Runnable observer) { configurationObservers.remove(observer); }
+
+    public void subscribeEnforcement(Runnable observer) { enforcementObservers.add(observer); }
+    public void unsubscribeEnforcement(Runnable observer) { enforcementObservers.remove(observer); }
+    public boolean enforcementEnabled() { return enforcement.enabled(); }
+    public boolean enforcementPending() { return enforcement.pending(); }
+    public long enforcementRevision() { return enforcement.revision(); }
+    public boolean permitsEnforcement(long ticket) { return enforcement.permits(ticket); }
+
+    public void setEnforcementEnabled(boolean enabled, Consumer<Boolean> completed) {
+        editEnforcement(previous -> enabled, completed);
+    }
+
+    public void toggleEnforcement(Consumer<Boolean> completed) {
+        editEnforcement(previous -> !previous, completed);
+    }
+
+    private void editEnforcement(UnaryOperator<Boolean> transform, Consumer<Boolean> completed) {
+        enforcement.beginWrite();
+        worker.execute(() -> {
+            boolean success = false;
+            try {
+                boolean next = transform.apply(savedEnforcementEnabled);
+                if (next != savedEnforcementEnabled) {
+                    prefs.saveEnforcementEnabled(next, savedEnforcementEnabled);
+                    savedEnforcementEnabled = next;
+                }
+                success = true;
+            } catch (RuntimeException failure) {
+                report(failure);
+            }
+            boolean confirmed = savedEnforcementEnabled;
+            boolean written = success;
+            main.post(() -> {
+                enforcement.finishWrite(confirmed);
+                enforcementChanged();
+                completed.accept(written);
+            });
+        });
+        enforcementChanged();
+    }
+
+    private void enforcementChanged() {
+        for (Runnable observer : new ArrayList<>(enforcementObservers)) observer.run();
+    }
 
     public void changed() {
         for (Runnable observer : new ArrayList<>(observers)) observer.run();
@@ -150,7 +200,8 @@ public final class Repository {
                         : Eligibility.PENDING;
                 if (state.isTarget()) whitelist.remember(state.creator);
                 Totals totals = db.totals(window.start);
-                PolicyEngine.Decision decision = policy.evaluate(state, eligibility, totals, settings, window);
+                boolean enforceLimits = enforcement.active();
+                PolicyEngine.Decision decision = policy.evaluate(state, eligibility, totals, settings, window, enforceLimits);
                 if (decision.action == PolicyEngine.Action.BLOCK) {
                     counter.close();
                 } else {
@@ -158,7 +209,7 @@ public final class Repository {
                             wall, elapsed, settings);
                     if (!changes.isEmpty()) {
                         totals = db.apply(changes, window.start);
-                        decision = policy.evaluate(state, eligibility, totals, settings, window);
+                        decision = policy.evaluate(state, eligibility, totals, settings, window, enforceLimits);
                         main.post(this::changed);
                     }
                     if (decision.action == PolicyEngine.Action.BLOCK) counter.close();
@@ -166,7 +217,8 @@ public final class Repository {
                 boolean warn = decision.action == PolicyEngine.Action.WARN &&
                         !prefs.set("warned.v1").contains(decision.key);
                 long nextConfirmation = Math.min(1000, counter.untilCount());
-                if (state.isTarget() && eligibility == Eligibility.ELIGIBLE && decision.action != PolicyEngine.Action.BLOCK) {
+                if (enforceLimits && state.isTarget() && eligibility == Eligibility.ELIGIBLE &&
+                        decision.action != PolicyEngine.Action.BLOCK) {
                     int scope = settings.scope(state.surface);
                     long cap = settings.minutes(scope) * 60000L;
                     if (cap > 0) {

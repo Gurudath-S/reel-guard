@@ -34,4 +34,16 @@ Start from recorded settings and a known daily total. Use a fresh test install o
 
 **Additional device checks.** Exercise a minutes-only cap with one long eligible reel and a mixed cap with revisits. Check warning delivery once, Home button failure handling where reproducible, notification permission denied, invalid settings, delayed author, disabled service, signed-out targets and missing target app. Kill the process after a committed count and confirm restart does not invent time. Inspect debug vs release APK contents. If optional friction ships, verify early confirmation fails, 30 s confirmation succeeds and leaving cancels.
 
+## Universal limits switch device runs
+
+Run on Android 14 with installed Instagram and YouTube versions recognized by the app. Check tile discovery, state announcements, and dashboard synchronization on API 29 as well. [Universal limits switch specification](16-universal-limits-switch.md)
+
+| Scenario | Pass condition |
+|---|---|
+| Continue counting | Turn limits off at a combined cap of 3. Watch 5 qualifying items across the three surfaces. Each surface scrolls freely and the dashboard shows 5 / 3. Turn limits on and verify that the next confirmed eligible item blocks before it adds another count. |
+| Time caps and scope | Cross a minutes-only limit while off. Verify dwell continues above the cap. Re-enable with only one surface exhausted and confirm that only that surface blocks. Include an Instagram feed video, an exempt creator, and an ordinary YouTube video. |
+| Warning and shield | Cross the warning threshold while off, resume below the cap, and see one warning. Pause and resume again and confirm the warning stays recorded. Disable from the tile while a shield is active and verify that touches reach the app when the shade closes. Enable with the shade open and confirm that Back waits for fresh eligible foreground evidence. |
+| Two controls | Add the tile through Quick Settings. Leave an unsaved cap draft, toggle from the tile, return to the dashboard, and save. Compare both controls and verify the draft survived. Test rapid taps, rotation, TalkBack, a disconnected accessibility service, and removing and re-adding the tile. |
+| Persistence | Upgrade with existing history and verify limits default to on. Turn them off, cross the daily reset, restart the process, reboot, and reconnect the service. Verify the setting stays off and new observations use the new quota window. |
+
 **Handoff evidence.** Keep sanitized fixture names, version-specific rule observations, host results, API 34 device outcomes and measured event-to-overlay latency together. Record false positives, missed feed rows, silent-player timeouts, truncated trees and background capture activity during the plan's week of daily use. An unverified selector remains a discovery item, including when a similar version happened to work.

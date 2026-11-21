@@ -19,6 +19,7 @@ Use these sheets to implement the personal Android app described in [PLAN.md](..
 | 7 | [Activities and settings](13-ui.md) defines the dashboard, editor, whitelist and status workflows. | Preferences, database, service status |
 | 8 | [Diagnostics and selector health](14-diagnostics.md) defines local alerts, debug capture and release boundaries. | Snapshot, catalog, service and UI |
 | All | [Verification and device acceptance](15-verification.md) maps fixtures, timing tests and device scenarios to pass conditions. | Use the relevant rows at each step |
+| Feature | [Universal limits switch](16-universal-limits-switch.md) defines the dashboard switch, Quick Settings tile, and continued accounting while limits are off. | Preferences, service, policy and UI |
 
 ## Follow one reel through the system
 
@@ -35,7 +36,7 @@ Use these sheets to implement the personal Android app described in [PLAN.md](..
 | Meaning of minutes | Charge verified eligible time even for a short flick or revisit. Count qualification and time qualification are independent. |
 | Missing author | If the platform has whitelist entries, defer enforcement and charging while the handle is unresolved. If its whitelist is empty, a verified target can accrue time and trigger enforcement even when the handle is unavailable. |
 | Content identity | Keep the most recent 64 counted identities per platform per daily window, shared across that platform's surfaces. Older evicted items can count again. |
-| Changes and overrides | Saved quota changes take effect immediately. Whitelist changes apply prospectively. Baseline has no override button. The optional 30-second limit-increase delay has a separate acceptance case in the UI sheet. |
+| Changes and overrides | Saved quota changes take effect immediately. Whitelist changes apply prospectively. The universal limits switch controls enforcement across all surfaces. The optional 30-second limit-increase delay has a separate acceptance case in the UI sheet. |
 | Timings and heuristics | The 300 ms sampling interval, three-second inactivity cutoff, feed geometry and health-alert thresholds are starting values. Record fixture or device evidence when tuning them. |
 
 The device-dependent deliverables are the selector profiles, sanitized fixtures, and device measurements. Record the installed app version, locale and observed evidence with each result so another implementer can reproduce it.

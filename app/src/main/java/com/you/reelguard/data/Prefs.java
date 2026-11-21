@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 final class Prefs {
+    private static final String ENFORCEMENT_ENABLED = "enforcement_enabled.v1";
     private final SharedPreferences storage;
     private final Gson gson = new Gson();
 
@@ -33,6 +34,15 @@ final class Prefs {
     }
 
     void save(Settings settings) { put("settings.v1", gson.toJson(settings)); }
+
+    boolean enforcementEnabled() { return storage.getBoolean(ENFORCEMENT_ENABLED, true); }
+
+    void saveEnforcementEnabled(boolean enabled, boolean previous) {
+        if (storage.edit().putBoolean(ENFORCEMENT_ENABLED, enabled).commit()) return;
+        // A failed commit can still change the in-memory preference.
+        storage.edit().putBoolean(ENFORCEMENT_ENABLED, previous).commit();
+        throw new IllegalStateException("Limits preference write failed");
+    }
 
     DailyWindow window(long now, int reset) {
         String saved = storage.getString("window.v1", null);

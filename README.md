@@ -2,6 +2,12 @@
 
 ReelGuard tracks Instagram Reels and YouTube Shorts on Android. The dashboard shows today's counts and viewing time, supports combined or per-surface limits, and lets you exempt creators. See the [implementation specs](docs/specs/README.md).
 
+## Turn limits on or off
+
+Use **ReelGuard limits** near the top of the dashboard. When limits are off, Instagram Reels, Instagram feed videos, and YouTube Shorts scroll freely and usage still counts toward the daily quota while the accessibility service is connected. Turn limits on again manually to enforce the saved caps against today's totals.
+
+To control limits from another app, open the Quick Settings editor and drag the **ReelGuard limits** tile into your visible tiles. The dashboard and tile share the same setting, and either control can change it while the accessibility service is disconnected.
+
 ## Build and install
 
 Use JDK 17, Android SDK Platform 34 and Build Tools 34.0.0. Set JAVA_HOME and ANDROID_HOME. From PowerShell at the project root, run:

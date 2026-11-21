@@ -93,16 +93,59 @@ public final class UsageTest {
                 new int[]{1, 0, 0, 0});
         Totals totals = new Totals();
         totals.add(2, false, 7, 47999);
-        assertEquals(Action.ALLOW, policy.evaluate(reel, Eligibility.ELIGIBLE, totals, settings, day).action);
+        assertEquals(Action.ALLOW, policy.evaluate(reel, Eligibility.ELIGIBLE, totals, settings, day, true).action);
         totals.add(2, false, 1, 1);
-        assertEquals(Action.WARN, policy.evaluate(reel, Eligibility.ELIGIBLE, totals, settings, day).action);
+        assertEquals(Action.WARN, policy.evaluate(reel, Eligibility.ELIGIBLE, totals, settings, day, true).action);
         totals.add(2, false, 0, 12000);
-        assertEquals(Action.BLOCK, policy.evaluate(reel, Eligibility.ELIGIBLE, totals, settings, day).action);
-        assertEquals(Action.ALLOW, policy.evaluate(reel, Eligibility.EXEMPT, totals, settings, day).action);
+        assertEquals(Action.BLOCK, policy.evaluate(reel, Eligibility.ELIGIBLE, totals, settings, day, true).action);
+        assertEquals(Action.ALLOW, policy.evaluate(reel, Eligibility.EXEMPT, totals, settings, day, true).action);
         Settings separate = new Settings(true, false, 2, 80, 240, new int[]{10, 1, 0, 0}, new int[4]);
-        assertEquals(Action.ALLOW, policy.evaluate(reel, Eligibility.ELIGIBLE, totals, separate, day).action);
+        assertEquals(Action.ALLOW, policy.evaluate(reel, Eligibility.ELIGIBLE, totals, separate, day, true).action);
         assertEquals(Action.ALLOW, policy.evaluate(ScreenState.other(Platform.YT, ScreenState.Evidence.KNOWN_OTHER),
-                Eligibility.ELIGIBLE, totals, settings, day).action);
+                Eligibility.ELIGIBLE, totals, settings, day, true).action);
+    }
+
+    @Test public void limitsOffAllowCountingPastCapsOnEverySurface() {
+        PolicyEngine policy = new PolicyEngine();
+        Settings settings = new Settings(true, true, 2, 80, 240, new int[]{0, 1, 1, 1},
+                new int[]{0, 1, 1, 1});
+        Totals totals = new Totals();
+        for (Surface surface : new Surface[]{Surface.IG_REELS_TAB, Surface.IG_FEED_VIDEO, Surface.YT_SHORTS}) {
+            int scope = settings.scope(surface);
+            totals.add(scope, false, 1, 60000);
+            Platform platform = surface == Surface.YT_SHORTS ? Platform.YT : Platform.IG;
+            ScreenState state = new ScreenState(platform, surface, null, surface.key, ScreenState.Evidence.TARGET);
+
+            assertEquals(Action.ALLOW, policy.evaluate(state, Eligibility.ELIGIBLE, totals, settings, day, false).action);
+            Checkpoint arrival = only(engine.observe(state, Eligibility.ELIGIBLE, 4, day, 10, 10, settings));
+            Checkpoint later = only(engine.observe(state, Eligibility.ELIGIBLE, 4, day, 1010, 1010, settings));
+            assertTrue(later.counted);
+            assertEquals(arrival.id, later.id);
+            assertEquals(1000, later.dwell);
+            totals.add(scope, false, 1, later.dwell);
+            assertEquals(Action.ALLOW, policy.evaluate(state, Eligibility.ELIGIBLE, totals, settings, day, false).action);
+            assertEquals(Action.BLOCK, policy.evaluate(state, Eligibility.ELIGIBLE, totals, settings, day, true).action);
+        }
+        assertEquals(6, totals.count(0));
+        assertEquals(183000, totals.millis(0));
+    }
+
+    @Test public void resumingLimitsUsesTheSameWarningKey() {
+        PolicyEngine policy = new PolicyEngine();
+        ScreenState reel = item("A", Surface.IG_REELS_TAB);
+        Settings settings = new Settings(false, false, 2, 80, 240, new int[]{10, 0, 0, 0}, new int[4]);
+        Totals totals = new Totals();
+        totals.add(reel.surface.ordinal() + 1, false, 8, 0);
+        PolicyEngine.Decision before = policy.evaluate(reel, Eligibility.ELIGIBLE, totals, settings, day, true);
+        assertEquals(Action.WARN, before.action);
+
+        PolicyEngine.Decision off = policy.evaluate(reel, Eligibility.ELIGIBLE, totals, settings, day, false);
+        assertEquals(Action.ALLOW, off.action);
+        assertTrue(off.key.isEmpty());
+
+        PolicyEngine.Decision resumed = policy.evaluate(reel, Eligibility.ELIGIBLE, totals, settings, day, true);
+        assertEquals(Action.WARN, resumed.action);
+        assertEquals(before.key, resumed.key);
     }
 
     @Test public void signatureNormalizesCaptionWhitespace() {

@@ -25,8 +25,8 @@ public final class PolicyEngine {
     }
 
     public Decision evaluate(ScreenState state, Eligibility eligibility, Totals totals,
-                             Settings settings, DailyWindow window) {
-        if (!state.isTarget() || eligibility != Eligibility.ELIGIBLE)
+                             Settings settings, DailyWindow window, boolean enforcementEnabled) {
+        if (!enforcementEnabled || !state.isTarget() || eligibility != Eligibility.ELIGIBLE)
             return new Decision(Action.ALLOW, "", 0, 0, false, window.end);
         int scope = settings.scope(state.surface);
         long countCap = settings.count(scope);
