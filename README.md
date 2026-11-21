@@ -11,6 +11,12 @@ Use JDK 17, Android SDK Platform 34 and Build Tools 34.0.0. Set JAVA_HOME and AN
 3. Run `adb install -r app/build/outputs/apk/debug/app-debug.apk`.
 4. Open ReelGuard, choose **Accessibility settings**, and enable the service. The dashboard should show **Service connected**. Leave the limits blank for the first detection pass.
 
+## GitHub releases
+
+Each push to `main`, including a merged pull request, runs the release unit tests, builds and signs an APK, and publishes it as `reelguard.apk`. Download it from [GitHub Releases](https://github.com/Gurudath-S/reel-guard/releases/latest). Each run uses a `build-N` tag and increments the Android version code.
+
+The workflow reads the PKCS#12 keystore with alias `reelguard` from the `REELGUARD_KEYSTORE_BASE64` Actions secret and its password from `REELGUARD_KEYSTORE_PASSWORD`. Keep a backup of both for future updates. Android requires the same signing key to install an update over an existing app. Moving from the local debug APK to the GitHub release requires a fresh install.
+
 ## First device pass
 
 In the debug APK, open **Selector diagnostics** and arm a capture for Instagram or YouTube. Switch to the screen you want to inspect, then return to diagnostics for its classification and capture filename. Run `adb shell run-as com.you.reelguard ls files/fixtures` to list captures. Use `adb shell run-as com.you.reelguard cat files/fixtures/<filename>` to read a sanitized capture.
