@@ -1,0 +1,41 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+        <TextView android:id="@+id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/app_name" android:textSize="32sp" android:accessibilityHeading="true" />
+        <TextView android:id="@+id/status" android:layout_width="match_parent" android:layout_height="wrap_content"  />
+        <Button android:id="@+id/enable" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Accessibility settings" />
+        <TextView android:id="@+id/usage" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="16sp" android:paddingTop="16dp" android:paddingBottom="12dp" />
+        <TextView android:id="@+id/diagnostic" android:layout_width="match_parent" android:layout_height="wrap_content"  />
+        <Button android:id="@+id/whitelist" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Whitelist" />
+        <Button android:id="@+id/notifications" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Enable selector alerts" />
+        <Button android:id="@+id/debug" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Selector diagnostics" />
+        <TextView android:id="@+id/limits_header" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Daily limits" android:paddingTop="20dp" android:textSize="24sp" android:accessibilityHeading="true" />
+        <Switch android:id="@+id/separate" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Separate limits by surface" />
+        <LinearLayout android:id="@+id/cap_group_0" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="12dp">
+        <TextView android:id="@+id/cap_label_0" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Combined" android:textStyle="bold" />
+        <EditText android:id="@+id/counts_0" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLines="1" android:hint="Reel limit (blank for none)" />
+        <EditText android:id="@+id/minutes_0" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLines="1" android:hint="Minute limit (blank for none)" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/cap_group_1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="12dp">
+        <TextView android:id="@+id/cap_label_1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Instagram Reels tab" android:textStyle="bold" />
+        <EditText android:id="@+id/counts_1" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLines="1" android:hint="Reel limit (blank for none)" />
+        <EditText android:id="@+id/minutes_1" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLines="1" android:hint="Minute limit (blank for none)" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/cap_group_2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="12dp">
+        <TextView android:id="@+id/cap_label_2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Instagram feed videos" android:textStyle="bold" />
+        <EditText android:id="@+id/counts_2" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLines="1" android:hint="Reel limit (blank for none)" />
+        <EditText android:id="@+id/minutes_2" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLines="1" android:hint="Minute limit (blank for none)" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/cap_group_3" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="12dp">
+        <TextView android:id="@+id/cap_label_3" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="YouTube Shorts" android:textStyle="bold" />
+        <EditText android:id="@+id/counts_3" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLines="1" android:hint="Reel limit (blank for none)" />
+        <EditText android:id="@+id/minutes_3" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLines="1" android:hint="Minute limit (blank for none)" />
+        </LinearLayout>
+        <Switch android:id="@+id/swipe" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Count each distinct item on arrival" />
+        <EditText android:id="@+id/dwell" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLines="1" android:hint="Minimum dwell in seconds" />
+        <EditText android:id="@+id/warning_percent" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:maxLines="1" android:hint="Warning threshold (%)" />
+        <Button android:id="@+id/reset" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Daily reset" />
+        <Button android:id="@+id/save" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Save settings" />
+        <Button android:id="@+id/cancel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Reset draft" />
+        <TextView android:id="@+id/form_result" android:layout_width="match_parent" android:layout_height="wrap_content"  />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="limit_reached">Daily limit reached</string>
+    <string name="close_app">Close app</string>
+</resources>

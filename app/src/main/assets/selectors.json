@@ -1,0 +1,333 @@
+{
+  "schemaVersion": 1,
+  "packages": {
+    "com.instagram.android": {
+      "profiles": [
+        {
+          "name": "instagram-456.1.0.56.78",
+          "minVersionCode": 386215122,
+          "maxVersionCode": 386215122,
+          "roles": {
+            "homeTabSelected": [
+              {
+                "viewId": "com.instagram.android:id/feed_tab"
+              }
+            ],
+            "reelsTabSelected": [
+              {
+                "viewId": "com.instagram.android:id/clips_tab"
+              }
+            ],
+            "selectedTabIcon": [
+              {
+                "viewId": "com.instagram.android:id/tab_icon",
+                "selected": true
+              }
+            ],
+            "directTab": [
+              {
+                "viewId": "com.instagram.android:id/direct_tab"
+              }
+            ],
+            "profileTab": [
+              {
+                "viewId": "com.instagram.android:id/profile_tab"
+              }
+            ],
+            "searchTab": [
+              {
+                "viewId": "com.instagram.android:id/search_tab"
+              }
+            ],
+            "homeFeedList": [
+              {
+                "viewId": "android:id/list",
+                "className": "androidx.recyclerview.widget.RecyclerView",
+                "scrollable": true
+              }
+            ],
+            "feedMedia": [
+              {
+                "viewId": "com.instagram.android:id/video_container",
+                "className": "android.view.ViewGroup"
+              },
+              {
+                "viewId": "com.instagram.android:id/row_feed_photo_imageview"
+              },
+              {
+                "viewId": "com.instagram.android:id/media_group"
+              }
+            ],
+            "videoMarker": [
+              {
+                "viewId": "com.instagram.android:id/video_container",
+                "className": "android.view.ViewGroup"
+              },
+              {
+                "viewId": "com.instagram.android:id/row_feed_photo_imageview",
+                "descriptionPattern": "^(Reel|Video) by "
+              }
+            ],
+            "feedCreator": [
+              {
+                "viewId": "com.instagram.android:id/row_feed_photo_profile_name",
+                "textPattern": "^@?[a-z0-9._]+$",
+                "source": "text"
+              }
+            ],
+            "feedPostActions": [
+              {
+                "viewId": "com.instagram.android:id/row_feed_view_group_buttons"
+              }
+            ],
+            "feedCaption": [
+              {
+                "className": "com.instagram.ui.widget.textview.IgTextLayoutView",
+                "textPattern": "\\S"
+              }
+            ],
+            "feedCaptionAuthor": [
+              {
+                "className": "android.widget.Button",
+                "descriptionPattern": "^@?[a-z0-9._]+$"
+              }
+            ],
+            "reelsPager": [
+              {
+                "viewId": "com.instagram.android:id/clips_viewer_view_pager"
+              }
+            ],
+            "reelsItem": [
+              {
+                "viewId": "com.instagram.android:id/clips_video_container"
+              }
+            ],
+            "creator": [
+              {
+                "viewId": "com.instagram.android:id/clips_video_container",
+                "descriptionPattern": "^Reel by (@?[a-z0-9._]+?)(?:\\.(?:\\s|$)|$)",
+                "source": "description",
+                "group": 1
+              }
+            ],
+            "caption": [
+              {
+                "viewId": "com.instagram.android:id/clips_video_container",
+                "descriptionPattern": "(?s)^Reel by @?[a-z0-9._]+?\\.\\s+(.+)$",
+                "source": "description",
+                "group": 1
+              }
+            ],
+            "homeFeedEvidence": [
+              {
+                "viewId": "com.instagram.android:id/row_feed_profile_header"
+              },
+              {
+                "viewId": "com.instagram.android:id/row_feed_view_group_buttons"
+              }
+            ]
+          }
+        }
+      ],
+      "fallback": {
+        "name": "provisional-ig",
+        "locales": [
+          "en"
+        ],
+        "roles": {
+          "reelsPager": [
+            {
+              "viewId": "com.instagram.android:id/clips_viewer_view_pager"
+            }
+          ],
+          "reelsTabSelected": [
+            {
+              "selected": true,
+              "descriptionPattern": "^Reels$"
+            },
+            {
+              "selected": true,
+              "viewId": "com.instagram.android:id/clips_tab"
+            }
+          ],
+          "reelsItem": [
+            {
+              "viewId": "com.instagram.android:id/clips_video_container"
+            }
+          ],
+          "homeTabSelected": [
+            {
+              "selected": true,
+              "descriptionPattern": "^Home$"
+            },
+            {
+              "selected": true,
+              "viewId": "com.instagram.android:id/feed_tab"
+            }
+          ],
+          "homeFeedList": [
+            {
+              "viewId": "com.instagram.android:id/refreshable_recycler_view",
+              "scrollable": true
+            }
+          ],
+          "feedRow": [
+            {
+              "viewId": "com.instagram.android:id/row_feed_media_container"
+            },
+            {
+              "viewId": "com.instagram.android:id/row_feed_photo"
+            }
+          ],
+          "videoMarker": [
+            {
+              "viewId": "com.instagram.android:id/row_feed_video_media"
+            },
+            {
+              "descriptionPattern": "^Reel by "
+            }
+          ],
+          "photoMarker": [
+            {
+              "viewId": "com.instagram.android:id/row_feed_photo"
+            }
+          ],
+          "creator": [
+            {
+              "descriptionPattern": "^Reel by @?([a-z0-9._]+)",
+              "source": "description",
+              "group": 1
+            },
+            {
+              "viewId": "com.instagram.android:id/clips_author_username",
+              "source": "text"
+            }
+          ],
+          "caption": [
+            {
+              "viewId": "com.instagram.android:id/clips_caption",
+              "source": "text"
+            },
+            {
+              "viewId": "com.instagram.android:id/row_feed_textview_caption",
+              "source": "text"
+            }
+          ],
+          "exclude": [
+            {
+              "viewId": "com.instagram.android:id/direct_inbox_container"
+            },
+            {
+              "viewId": "com.instagram.android:id/profile_header"
+            }
+          ]
+        }
+      }
+    },
+    "com.google.android.youtube": {
+      "profiles": [
+        {
+          "name": "youtube-21.45.82",
+          "minVersionCode": 1561310996,
+          "maxVersionCode": 1561310996,
+          "roles": {
+            "shortsPlayer": [
+              {
+                "viewId": "com.google.android.youtube:id/reel_recycler"
+              }
+            ],
+            "currentShort": [
+              {
+                "viewId": "com.google.android.youtube:id/reel_player_page_container"
+              }
+            ],
+            "creator": [
+              {
+                "className": "android.view.View",
+                "descriptionPattern": "^(@[\\p{L}\\p{M}\\p{N}._·-]+)$",
+                "source": "description",
+                "group": 1
+              },
+              {
+                "textPattern": "^(@[\\p{L}\\p{M}\\p{N}._·-]+)$",
+                "source": "text",
+                "group": 1
+              }
+            ],
+            "captionSibling": [
+              {
+                "className": "android.view.View",
+                "descriptionPattern": "\\S",
+                "source": "description"
+              }
+            ],
+            "ordinary": [
+              {
+                "viewId": "com.google.android.youtube:id/results"
+              },
+              {
+                "viewId": "com.google.android.youtube:id/watch_player"
+              }
+            ]
+          }
+        }
+      ],
+      "fallback": {
+        "name": "provisional-yt",
+        "locales": [
+          "en"
+        ],
+        "roles": {
+          "shortsPlayer": [
+            {
+              "viewId": "com.google.android.youtube:id/reel_watch_fragment_container"
+            }
+          ],
+          "currentShort": [
+            {
+              "viewId": "com.google.android.youtube:id/reel_player_page_container"
+            },
+            {
+              "viewId": "com.google.android.youtube:id/reel_watch_player"
+            }
+          ],
+          "creator": [
+            {
+              "textPattern": "^(@[\\p{L}\\p{M}\\p{N}._·-]+)$",
+              "source": "text",
+              "group": 1
+            },
+            {
+              "descriptionPattern": "^(@[\\p{L}\\p{M}\\p{N}._·-]+)$",
+              "source": "description",
+              "group": 1
+            }
+          ],
+          "caption": [
+            {
+              "viewId": "com.google.android.youtube:id/reel_player_page_title",
+              "source": "text"
+            },
+            {
+              "viewId": "com.google.android.youtube:id/reel_title",
+              "source": "text"
+            }
+          ],
+          "exclude": [
+            {
+              "viewId": "com.google.android.youtube:id/watch_player"
+            }
+          ],
+          "ordinary": [
+            {
+              "viewId": "com.google.android.youtube:id/results"
+            },
+            {
+              "viewId": "com.google.android.youtube:id/channel_header"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

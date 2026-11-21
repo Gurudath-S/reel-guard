@@ -1,0 +1,943 @@
+{
+  "schemaVersion": 1,
+  "packageName": "com.google.android.youtube",
+  "versionCode": 1561310996,
+  "windowId": 56,
+  "windowBounds": {
+    "bottom": 2400,
+    "left": 565,
+    "right": 1645,
+    "top": 0
+  },
+  "locale": "en-US",
+  "status": "COMPLETE",
+  "root": {
+    "bounds": {
+      "bottom": 2400,
+      "left": 0,
+      "right": 1080,
+      "top": 0
+    },
+    "children": [
+      {
+        "bounds": {
+          "bottom": 2400,
+          "left": 565,
+          "right": 1645,
+          "top": 0
+        },
+        "children": [],
+        "className": "android.view.ViewGroup",
+        "id": "com.google.android.youtube:id/reel_time_bar",
+        "scrollable": false,
+        "selected": false,
+        "visible": true
+      },
+      {
+        "bounds": {
+          "bottom": 2400,
+          "left": 565,
+          "right": 1645,
+          "top": 0
+        },
+        "children": [
+          {
+            "bounds": {
+              "bottom": 2400,
+              "left": 565,
+              "right": 1645,
+              "top": 0
+            },
+            "children": [
+              {
+                "bounds": {
+                  "bottom": 2334,
+                  "left": 565,
+                  "right": 1645,
+                  "top": 0
+                },
+                "children": [
+                  {
+                    "bounds": {
+                      "bottom": 2334,
+                      "left": 565,
+                      "right": 1645,
+                      "top": 0
+                    },
+                    "children": [
+                      {
+                        "bounds": {
+                          "bottom": 0,
+                          "left": 565,
+                          "right": 565,
+                          "top": 0
+                        },
+                        "children": [],
+                        "className": "android.widget.FrameLayout",
+                        "description": "sample_1",
+                        "id": "com.google.android.youtube:id/miniplayer_chevron_container",
+                        "scrollable": false,
+                        "selected": false,
+                        "visible": false
+                      },
+                      {
+                        "bounds": {
+                          "bottom": 2227,
+                          "left": 1095,
+                          "right": 1623,
+                          "top": 1883
+                        },
+                        "children": [],
+                        "className": "android.view.ViewGroup",
+                        "id": "com.google.android.youtube:id/watch_while_time_bar_view",
+                        "scrollable": false,
+                        "selected": false,
+                        "visible": true
+                      },
+                      {
+                        "bounds": {
+                          "bottom": 2227,
+                          "left": 1095,
+                          "right": 1623,
+                          "top": 1883
+                        },
+                        "children": [],
+                        "className": "android.view.ViewGroup",
+                        "id": "com.google.android.youtube:id/floaty_bar_time_bar_view",
+                        "scrollable": false,
+                        "selected": false,
+                        "visible": true
+                      },
+                      {
+                        "bounds": {
+                          "bottom": 2180,
+                          "left": 1095,
+                          "right": 1623,
+                          "top": 1883
+                        },
+                        "children": [],
+                        "className": "android.widget.FrameLayout",
+                        "description": "sample_2",
+                        "id": "com.google.android.youtube:id/floaty_bar_controls_view",
+                        "scrollable": false,
+                        "selected": false,
+                        "visible": true
+                      }
+                    ],
+                    "className": "android.view.ViewGroup",
+                    "id": "com.google.android.youtube:id/next_gen_watch_layout_no_player_fragment_container",
+                    "scrollable": false,
+                    "selected": false,
+                    "visible": true
+                  },
+                  {
+                    "bounds": {
+                      "bottom": 2334,
+                      "left": 565,
+                      "right": 1645,
+                      "top": 0
+                    },
+                    "children": [
+                      {
+                        "bounds": {
+                          "bottom": 2202,
+                          "left": 565,
+                          "right": 1645,
+                          "top": 0
+                        },
+                        "children": [
+                          {
+                            "bounds": {
+                              "bottom": 236,
+                              "left": 565,
+                              "right": 1645,
+                              "top": 0
+                            },
+                            "children": [
+                              {
+                                "bounds": {
+                                  "bottom": 104,
+                                  "left": 100,
+                                  "right": 1180,
+                                  "top": 104
+                                },
+                                "children": [],
+                                "className": "android.widget.FrameLayout",
+                                "id": "com.google.android.youtube:id/collapsing_header_container",
+                                "scrollable": false,
+                                "selected": false,
+                                "visible": false
+                              },
+                              {
+                                "bounds": {
+                                  "bottom": 236,
+                                  "left": 100,
+                                  "right": 1180,
+                                  "top": 104
+                                },
+                                "children": [
+                                  {
+                                    "bounds": {
+                                      "bottom": 236,
+                                      "left": 100,
+                                      "right": 455,
+                                      "top": 104
+                                    },
+                                    "children": [],
+                                    "className": "android.widget.ImageView",
+                                    "description": "sample_3",
+                                    "id": "com.google.android.youtube:id/youtube_logo",
+                                    "scrollable": false,
+                                    "selected": false,
+                                    "visible": true
+                                  },
+                                  {
+                                    "bounds": {
+                                      "bottom": 236,
+                                      "left": 916,
+                                      "right": 1048,
+                                      "top": 104
+                                    },
+                                    "children": [],
+                                    "className": "android.widget.ImageView",
+                                    "description": "sample_4",
+                                    "id": "com.google.android.youtube:id/menu_item_view",
+                                    "scrollable": false,
+                                    "selected": false,
+                                    "visible": true
+                                  },
+                                  {
+                                    "bounds": {
+                                      "bottom": 236,
+                                      "left": 1048,
+                                      "right": 1180,
+                                      "top": 104
+                                    },
+                                    "children": [],
+                                    "className": "android.widget.ImageView",
+                                    "description": "Search",
+                                    "id": "com.google.android.youtube:id/menu_item_view",
+                                    "scrollable": false,
+                                    "selected": false,
+                                    "visible": true
+                                  }
+                                ],
+                                "className": "android.view.ViewGroup",
+                                "id": "com.google.android.youtube:id/toolbar",
+                                "scrollable": false,
+                                "selected": false,
+                                "visible": true
+                              }
+                            ],
+                            "className": "android.widget.FrameLayout",
+                            "id": "com.google.android.youtube:id/toolbar_container",
+                            "scrollable": false,
+                            "selected": false,
+                            "visible": true
+                          },
+                          {
+                            "bounds": {
+                              "bottom": 368,
+                              "left": 609,
+                              "right": 1453,
+                              "top": 236
+                            },
+                            "children": [
+                              {
+                                "bounds": {
+                                  "bottom": 368,
+                                  "left": 144,
+                                  "right": 988,
+                                  "top": 236
+                                },
+                                "children": [
+                                  {
+                                    "bounds": {
+                                      "bottom": 368,
+                                      "left": 144,
+                                      "right": 276,
+                                      "top": 236
+                                    },
+                                    "children": [
+                                      {
+                                        "bounds": {
+                                          "bottom": 334,
+                                          "left": 144,
+                                          "right": 276,
+                                          "top": 270
+                                        },
+                                        "children": [],
+                                        "className": "android.widget.TextView",
+                                        "id": "com.google.android.youtube:id/text",
+                                        "scrollable": false,
+                                        "selected": true,
+                                        "text": "Home",
+                                        "visible": true
+                                      }
+                                    ],
+                                    "className": "android.widget.Button",
+                                    "description": "Home",
+                                    "id": "com.google.android.youtube:id/tabs_bar_text_tab_view",
+                                    "scrollable": false,
+                                    "selected": true,
+                                    "visible": true
+                                  },
+                                  {
+                                    "bounds": {
+                                      "bottom": 368,
+                                      "left": 276,
+                                      "right": 454,
+                                      "top": 236
+                                    },
+                                    "children": [
+                                      {
+                                        "bounds": {
+                                          "bottom": 334,
+                                          "left": 322,
+                                          "right": 454,
+                                          "top": 270
+                                        },
+                                        "children": [],
+                                        "className": "android.widget.TextView",
+                                        "id": "com.google.android.youtube:id/text",
+                                        "scrollable": false,
+                                        "selected": false,
+                                        "text": "sample_5",
+                                        "visible": true
+                                      }
+                                    ],
+                                    "className": "android.widget.Button",
+                                    "description": "sample_5",
+                                    "id": "com.google.android.youtube:id/tabs_bar_text_tab_view",
+                                    "scrollable": false,
+                                    "selected": false,
+                                    "visible": true
+                                  },
+                                  {
+                                    "bounds": {
+                                      "bottom": 368,
+                                      "left": 454,
+                                      "right": 632,
+                                      "top": 236
+                                    },
+                                    "children": [
+                                      {
+                                        "bounds": {
+                                          "bottom": 334,
+                                          "left": 500,
+                                          "right": 632,
+                                          "top": 270
+                                        },
+                                        "children": [],
+                                        "className": "android.widget.TextView",
+                                        "id": "com.google.android.youtube:id/text",
+                                        "scrollable": false,
+                                        "selected": false,
+                                        "text": "sample_6",
+                                        "visible": true
+                                      }
+                                    ],
+                                    "className": "android.widget.Button",
+                                    "description": "sample_6",
+                                    "id": "com.google.android.youtube:id/tabs_bar_text_tab_view",
+                                    "scrollable": false,
+                                    "selected": false,
+                                    "visible": true
+                                  },
+                                  {
+                                    "bounds": {
+                                      "bottom": 368,
+                                      "left": 632,
+                                      "right": 810,
+                                      "top": 236
+                                    },
+                                    "children": [
+                                      {
+                                        "bounds": {
+                                          "bottom": 334,
+                                          "left": 678,
+                                          "right": 810,
+                                          "top": 270
+                                        },
+                                        "children": [],
+                                        "className": "android.widget.TextView",
+                                        "id": "com.google.android.youtube:id/text",
+                                        "scrollable": false,
+                                        "selected": false,
+                                        "text": "sample_7",
+                                        "visible": true
+                                      }
+                                    ],
+                                    "className": "android.widget.Button",
+                                    "description": "sample_7",
+                                    "id": "com.google.android.youtube:id/tabs_bar_text_tab_view",
+                                    "scrollable": false,
+                                    "selected": false,
+                                    "visible": true
+                                  },
+                                  {
+                                    "bounds": {
+                                      "bottom": 368,
+                                      "left": 810,
+                                      "right": 988,
+                                      "top": 236
+                                    },
+                                    "children": [
+                                      {
+                                        "bounds": {
+                                          "bottom": 334,
+                                          "left": 856,
+                                          "right": 988,
+                                          "top": 270
+                                        },
+                                        "children": [],
+                                        "className": "android.widget.TextView",
+                                        "id": "com.google.android.youtube:id/text",
+                                        "scrollable": false,
+                                        "selected": false,
+                                        "text": "sample_8",
+                                        "visible": true
+                                      }
+                                    ],
+                                    "className": "android.widget.Button",
+                                    "description": "sample_8",
+                                    "id": "com.google.android.youtube:id/tabs_bar_text_tab_view",
+                                    "scrollable": false,
+                                    "selected": false,
+                                    "visible": true
+                                  }
+                                ],
+                                "className": "android.widget.LinearLayout",
+                                "scrollable": false,
+                                "selected": false,
+                                "visible": true
+                              }
+                            ],
+                            "className": "android.widget.HorizontalScrollView",
+                            "id": "com.google.android.youtube:id/tabs_bar",
+                            "scrollable": false,
+                            "selected": false,
+                            "visible": true
+                          },
+                          {
+                            "bounds": {
+                              "bottom": 2202,
+                              "left": 100,
+                              "right": 1180,
+                              "top": 368
+                            },
+                            "children": [
+                              {
+                                "bounds": {
+                                  "bottom": 2202,
+                                  "left": 100,
+                                  "right": 1180,
+                                  "top": 368
+                                },
+                                "children": [
+                                  {
+                                    "bounds": {
+                                      "bottom": 2202,
+                                      "left": 100,
+                                      "right": 1180,
+                                      "top": 368
+                                    },
+                                    "children": [
+                                      {
+                                        "bounds": {
+                                          "bottom": 1180,
+                                          "left": 100,
+                                          "right": 1180,
+                                          "top": 368
+                                        },
+                                        "children": [
+                                          {
+                                            "bounds": {
+                                              "bottom": 1180,
+                                              "left": 100,
+                                              "right": 640,
+                                              "top": 368
+                                            },
+                                            "children": [
+                                              {
+                                                "bounds": {
+                                                  "bottom": 1172,
+                                                  "left": 100,
+                                                  "right": 636,
+                                                  "top": 368
+                                                },
+                                                "children": [],
+                                                "className": "android.widget.Button",
+                                                "description": "sample_9",
+                                                "scrollable": false,
+                                                "selected": false,
+                                                "visible": true
+                                              },
+                                              {
+                                                "bounds": {
+                                                  "bottom": 440,
+                                                  "left": 575,
+                                                  "right": 625,
+                                                  "top": 390
+                                                },
+                                                "children": [],
+                                                "className": "android.widget.Button",
+                                                "description": "sample_10",
+                                                "scrollable": false,
+                                                "selected": false,
+                                                "visible": true
+                                              }
+                                            ],
+                                            "className": "android.view.ViewGroup",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": true
+                                          },
+                                          {
+                                            "bounds": {
+                                              "bottom": 1180,
+                                              "left": 640,
+                                              "right": 1180,
+                                              "top": 368
+                                            },
+                                            "children": [
+                                              {
+                                                "bounds": {
+                                                  "bottom": 1172,
+                                                  "left": 644,
+                                                  "right": 1180,
+                                                  "top": 368
+                                                },
+                                                "children": [],
+                                                "className": "android.widget.Button",
+                                                "description": "sample_11",
+                                                "scrollable": false,
+                                                "selected": false,
+                                                "visible": true
+                                              },
+                                              {
+                                                "bounds": {
+                                                  "bottom": 440,
+                                                  "left": 1119,
+                                                  "right": 1169,
+                                                  "top": 390
+                                                },
+                                                "children": [],
+                                                "className": "android.widget.Button",
+                                                "description": "sample_10",
+                                                "scrollable": false,
+                                                "selected": false,
+                                                "visible": true
+                                              }
+                                            ],
+                                            "className": "android.view.ViewGroup",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": true
+                                          }
+                                        ],
+                                        "className": "android.view.ViewGroup",
+                                        "scrollable": false,
+                                        "selected": false,
+                                        "visible": true
+                                      },
+                                      {
+                                        "bounds": {
+                                          "bottom": 1984,
+                                          "left": 100,
+                                          "right": 1180,
+                                          "top": 1180
+                                        },
+                                        "children": [
+                                          {
+                                            "bounds": {
+                                              "bottom": 1984,
+                                              "left": 100,
+                                              "right": 640,
+                                              "top": 1180
+                                            },
+                                            "children": [
+                                              {
+                                                "bounds": {
+                                                  "bottom": 1984,
+                                                  "left": 100,
+                                                  "right": 636,
+                                                  "top": 1180
+                                                },
+                                                "children": [],
+                                                "className": "android.widget.Button",
+                                                "description": "sample_12",
+                                                "scrollable": false,
+                                                "selected": false,
+                                                "visible": true
+                                              },
+                                              {
+                                                "bounds": {
+                                                  "bottom": 1252,
+                                                  "left": 575,
+                                                  "right": 625,
+                                                  "top": 1202
+                                                },
+                                                "children": [],
+                                                "className": "android.widget.Button",
+                                                "description": "sample_10",
+                                                "scrollable": false,
+                                                "selected": false,
+                                                "visible": true
+                                              }
+                                            ],
+                                            "className": "android.view.ViewGroup",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": true
+                                          },
+                                          {
+                                            "bounds": {
+                                              "bottom": 1984,
+                                              "left": 640,
+                                              "right": 1180,
+                                              "top": 1180
+                                            },
+                                            "children": [
+                                              {
+                                                "bounds": {
+                                                  "bottom": 1984,
+                                                  "left": 644,
+                                                  "right": 1180,
+                                                  "top": 1180
+                                                },
+                                                "children": [],
+                                                "className": "android.widget.Button",
+                                                "description": "sample_13",
+                                                "scrollable": false,
+                                                "selected": false,
+                                                "visible": true
+                                              },
+                                              {
+                                                "bounds": {
+                                                  "bottom": 1252,
+                                                  "left": 1119,
+                                                  "right": 1169,
+                                                  "top": 1202
+                                                },
+                                                "children": [],
+                                                "className": "android.widget.Button",
+                                                "description": "sample_10",
+                                                "scrollable": false,
+                                                "selected": false,
+                                                "visible": true
+                                              }
+                                            ],
+                                            "className": "android.view.ViewGroup",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": true
+                                          }
+                                        ],
+                                        "className": "android.view.ViewGroup",
+                                        "scrollable": false,
+                                        "selected": false,
+                                        "visible": true
+                                      },
+                                      {
+                                        "bounds": {
+                                          "bottom": 2202,
+                                          "left": 100,
+                                          "right": 1180,
+                                          "top": 2039
+                                        },
+                                        "children": [
+                                          {
+                                            "bounds": {
+                                              "bottom": 2202,
+                                              "left": 100,
+                                              "right": 1180,
+                                              "top": 2039
+                                            },
+                                            "children": [],
+                                            "className": "android.view.View",
+                                            "description": "sample_14",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": true
+                                          },
+                                          {
+                                            "bounds": {
+                                              "bottom": 2867,
+                                              "left": 144,
+                                              "right": 243,
+                                              "top": 2768
+                                            },
+                                            "children": [],
+                                            "className": "android.widget.Button",
+                                            "description": "sample_15",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": false
+                                          },
+                                          {
+                                            "bounds": {
+                                              "bottom": 2814,
+                                              "left": 265,
+                                              "right": 589,
+                                              "top": 2764
+                                            },
+                                            "children": [],
+                                            "className": "android.view.View",
+                                            "description": "@sample_16",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": false
+                                          },
+                                          {
+                                            "bounds": {
+                                              "bottom": 2870,
+                                              "left": 304,
+                                              "right": 374,
+                                              "top": 2820
+                                            },
+                                            "children": [],
+                                            "className": "android.view.View",
+                                            "description": "sample_17",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": false
+                                          },
+                                          {
+                                            "bounds": {
+                                              "bottom": 2870,
+                                              "left": 404,
+                                              "right": 540,
+                                              "top": 2820
+                                            },
+                                            "children": [],
+                                            "className": "android.view.View",
+                                            "description": "sample_18",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": false
+                                          },
+                                          {
+                                            "bounds": {
+                                              "bottom": 2872,
+                                              "left": 696,
+                                              "right": 806,
+                                              "top": 2762
+                                            },
+                                            "children": [],
+                                            "className": "android.widget.Button",
+                                            "description": "sample_19",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": false
+                                          },
+                                          {
+                                            "bounds": {
+                                              "bottom": 2872,
+                                              "left": 806,
+                                              "right": 916,
+                                              "top": 2762
+                                            },
+                                            "children": [],
+                                            "className": "android.widget.Button",
+                                            "description": "Comments",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": false
+                                          },
+                                          {
+                                            "bounds": {
+                                              "bottom": 2872,
+                                              "left": 916,
+                                              "right": 1026,
+                                              "top": 2762
+                                            },
+                                            "children": [],
+                                            "className": "android.widget.Button",
+                                            "description": "sample_20",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": false
+                                          },
+                                          {
+                                            "bounds": {
+                                              "bottom": 2872,
+                                              "left": 1026,
+                                              "right": 1136,
+                                              "top": 2762
+                                            },
+                                            "children": [],
+                                            "className": "android.widget.Button",
+                                            "description": "sample_21",
+                                            "scrollable": false,
+                                            "selected": false,
+                                            "visible": false
+                                          }
+                                        ],
+                                        "className": "android.view.ViewGroup",
+                                        "scrollable": false,
+                                        "selected": false,
+                                        "visible": true
+                                      }
+                                    ],
+                                    "className": "android.support.v7.widget.RecyclerView",
+                                    "id": "com.google.android.youtube:id/results",
+                                    "scrollable": true,
+                                    "selected": false,
+                                    "visible": true
+                                  },
+                                  {
+                                    "bounds": {
+                                      "bottom": 2202,
+                                      "left": 1180,
+                                      "right": 1180,
+                                      "top": 368
+                                    },
+                                    "children": [],
+                                    "className": "android.support.v7.widget.RecyclerView",
+                                    "id": "com.google.android.youtube:id/results",
+                                    "scrollable": false,
+                                    "selected": false,
+                                    "visible": false
+                                  }
+                                ],
+                                "className": "androidx.viewpager.widget.ViewPager",
+                                "id": "com.google.android.youtube:id/view_pager",
+                                "scrollable": true,
+                                "selected": false,
+                                "visible": true
+                              }
+                            ],
+                            "className": "android.widget.FrameLayout",
+                            "id": "com.google.android.youtube:id/loading_layout",
+                            "scrollable": false,
+                            "selected": false,
+                            "visible": true
+                          }
+                        ],
+                        "className": "android.widget.ScrollView",
+                        "id": "com.google.android.youtube:id/browse_fragment_layout_coordinator_layout",
+                        "scrollable": true,
+                        "selected": false,
+                        "visible": true
+                      }
+                    ],
+                    "className": "android.view.ViewGroup",
+                    "id": "com.google.android.youtube:id/watch_while_layout_coordinator_layout",
+                    "scrollable": false,
+                    "selected": false,
+                    "visible": true
+                  },
+                  {
+                    "bounds": {
+                      "bottom": 2334,
+                      "left": 565,
+                      "right": 1645,
+                      "top": 2202
+                    },
+                    "children": [
+                      {
+                        "bounds": {
+                          "bottom": 2334,
+                          "left": 100,
+                          "right": 1180,
+                          "top": 2202
+                        },
+                        "children": [
+                          {
+                            "bounds": {
+                              "bottom": 2334,
+                              "left": 100,
+                              "right": 370,
+                              "top": 2202
+                            },
+                            "children": [],
+                            "className": "android.widget.Button",
+                            "description": "Home",
+                            "scrollable": false,
+                            "selected": true,
+                            "visible": true
+                          },
+                          {
+                            "bounds": {
+                              "bottom": 2334,
+                              "left": 370,
+                              "right": 640,
+                              "top": 2202
+                            },
+                            "children": [],
+                            "className": "android.widget.Button",
+                            "description": "Shorts",
+                            "scrollable": false,
+                            "selected": false,
+                            "visible": true
+                          },
+                          {
+                            "bounds": {
+                              "bottom": 2334,
+                              "left": 640,
+                              "right": 910,
+                              "top": 2202
+                            },
+                            "children": [],
+                            "className": "android.widget.Button",
+                            "description": "sample_22",
+                            "scrollable": false,
+                            "selected": false,
+                            "visible": true
+                          },
+                          {
+                            "bounds": {
+                              "bottom": 2334,
+                              "left": 910,
+                              "right": 1180,
+                              "top": 2202
+                            },
+                            "children": [],
+                            "className": "android.widget.Button",
+                            "description": "sample_23",
+                            "scrollable": false,
+                            "selected": false,
+                            "visible": true
+                          }
+                        ],
+                        "className": "android.widget.LinearLayout",
+                        "scrollable": false,
+                        "selected": false,
+                        "visible": true
+                      }
+                    ],
+                    "className": "android.widget.HorizontalScrollView",
+                    "id": "com.google.android.youtube:id/pivot_bar",
+                    "scrollable": false,
+                    "selected": false,
+                    "visible": true
+                  }
+                ],
+                "className": "android.widget.FrameLayout",
+                "id": "com.google.android.youtube:id/accessibility_layer_container",
+                "scrollable": false,
+                "selected": false,
+                "visible": true
+              }
+            ],
+            "className": "android.widget.FrameLayout",
+            "id": "com.google.android.youtube:id/slim_status_bar_player_container",
+            "scrollable": false,
+            "selected": false,
+            "visible": true
+          }
+        ],
+        "className": "androidx.drawerlayout.widget.DrawerLayout",
+        "id": "com.google.android.youtube:id/more_drawer_container",
+        "scrollable": false,
+        "selected": false,
+        "visible": true
+      }
+    ],
+    "className": "android.widget.FrameLayout",
+    "scrollable": false,
+    "selected": false,
+    "visible": true
+  }
+}

@@ -1,0 +1,5 @@
+<resources>
+    <style name="ReelGuardTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:colorAccent">#A5D7BA</item>
+    </style>
+</resources>

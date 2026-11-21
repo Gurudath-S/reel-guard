@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ReelGuard</string>
+    <string name="service_description">Recognizes reels and Shorts in Instagram and YouTube, tracks usage locally, and can leave those screens when a limit is reached.</string>
+    <style name="ReelGuardTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:colorAccent">#315F4C</item>
+    </style>
+</resources>

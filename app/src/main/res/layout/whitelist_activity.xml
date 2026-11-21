@@ -1,0 +1,13 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+        <TextView android:id="@+id/whitelist_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Whitelist" android:textSize="30sp" android:accessibilityHeading="true" />
+        <Spinner android:id="@+id/platform" android:layout_width="match_parent" android:layout_height="wrap_content"  />
+        <EditText android:id="@+id/handle" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Creator handle" android:inputType="textNoSuggestions" android:maxLines="1" />
+        <Button android:id="@+id/add" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Add creator" />
+        <TextView android:id="@+id/whitelist_status" android:layout_width="match_parent" android:layout_height="wrap_content"  />
+        <TextView android:id="@+id/saved_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Saved creators" android:textSize="22sp" android:paddingTop="16dp" android:accessibilityHeading="true" />
+        <LinearLayout android:id="@+id/members" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+        <TextView android:id="@+id/recent_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Last seen creators" android:textSize="22sp" android:paddingTop="16dp" android:accessibilityHeading="true" />
+        <LinearLayout android:id="@+id/recent" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+    </LinearLayout>
+</ScrollView>
