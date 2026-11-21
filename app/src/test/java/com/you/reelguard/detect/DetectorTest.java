@@ -1,5 +1,7 @@
 package com.you.reelguard.detect;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.you.reelguard.snapshot.NodeSnapshot;
 import com.you.reelguard.snapshot.NodeSnapshot.Bounds;
 import java.nio.charset.StandardCharsets;
@@ -81,6 +83,19 @@ public final class DetectorTest {
         assertEquals(ScreenState.Evidence.KNOWN_OTHER, home.evidence);
     }
 
+    @Test public void recognizesCapturedShortsLayoutOnNewerYouTubeVersions() throws Exception {
+        JsonObject shorts = readFixture("yt-21.45.82-shorts.json");
+        shorts.addProperty("versionCode", 1561314006L);
+        shorts.addProperty("locale", "hi-IN");
+        ScreenState result = classifyFixture(Platform.YT, shorts);
+        assertEquals(Surface.YT_SHORTS, result.surface);
+        assertEquals("yt:@sample_4", result.creator);
+        assertNotNull(result.signature);
+
+        JsonObject home = readFixture("yt-21.45.82-home.json");
+        home.addProperty("versionCode", 1561314006L);
+        assertEquals(Surface.OTHER, classifyFixture(Platform.YT, home).surface);
+    }
     @Test public void classifiesCapturedInstagramHomeFeedVideo() throws Exception {
         ScreenState video = classifyFixture(Platform.IG, "ig-456.1.0.56.78-home-feed-video.json");
         assertEquals(Surface.IG_FEED_VIDEO, video.surface);
@@ -94,14 +109,21 @@ public final class DetectorTest {
         assertNotNull(reel.signature);
     }
     private ScreenState classifyFixture(Platform platform, String name) throws Exception {
+        return classifyFixture(platform, readFixture(name));
+    }
+
+    private ScreenState classifyFixture(Platform platform, JsonObject fixture) {
+        Gson gson = new Gson();
+        return router.classify(platform, fixture.get("versionCode").getAsLong(),
+                gson.fromJson(fixture.get("root"), NodeSnapshot.class),
+                gson.fromJson(fixture.get("windowBounds"), Bounds.class),
+                fixture.get("locale").getAsString());
+    }
+
+    private JsonObject readFixture(String name) throws Exception {
         try (java.io.InputStream stream = getClass().getResourceAsStream("/fixtures/" + name);
              Reader reader = new java.io.InputStreamReader(stream, StandardCharsets.UTF_8)) {
-            com.google.gson.Gson gson = new com.google.gson.Gson();
-            com.google.gson.JsonObject json = gson.fromJson(reader, com.google.gson.JsonObject.class);
-            return router.classify(platform, json.get("versionCode").getAsLong(),
-                    gson.fromJson(json.get("root"), NodeSnapshot.class),
-                    gson.fromJson(json.get("windowBounds"), Bounds.class),
-                    json.get("locale").getAsString());
+            return new Gson().fromJson(reader, JsonObject.class);
         }
     }
     @Test public void missingRootSuspends() {

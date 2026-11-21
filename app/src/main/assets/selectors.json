@@ -274,11 +274,11 @@
       ],
       "fallback": {
         "name": "provisional-yt",
-        "locales": [
-          "en"
-        ],
         "roles": {
           "shortsPlayer": [
+            {
+              "viewId": "com.google.android.youtube:id/reel_recycler"
+            },
             {
               "viewId": "com.google.android.youtube:id/reel_watch_fragment_container"
             }
@@ -311,6 +311,13 @@
             {
               "viewId": "com.google.android.youtube:id/reel_title",
               "source": "text"
+            }
+          ],
+          "captionSibling": [
+            {
+              "className": "android.view.View",
+              "descriptionPattern": "\\S",
+              "source": "description"
             }
           ],
           "exclude": [
