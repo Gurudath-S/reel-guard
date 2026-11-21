@@ -13,7 +13,9 @@ Use JDK 17, Android SDK Platform 34 and Build Tools 34.0.0. Set JAVA_HOME and AN
 
 ## GitHub releases
 
-Each push to `main`, including a merged pull request, runs the release unit tests, builds and signs an APK, and publishes it as `reelguard.apk`. Download it from [GitHub Releases](https://github.com/Gurudath-S/reel-guard/releases/latest). Each run uses a `build-N` tag and increments the Android version code.
+Each push to `main`, including a merged pull request, runs the release unit tests, builds and signs an APK, and publishes it as `reelguard.apk`. Download it from [GitHub Releases](https://github.com/Gurudath-S/reel-guard/releases/latest). Each new run uses a `build-N` tag and increments the Android version code.
+
+For an on-demand release, open [Release APK](https://github.com/Gurudath-S/reel-guard/actions/workflows/release.yml) in GitHub Actions, select **Run workflow**, and choose `main`.
 
 The workflow reads the PKCS#12 keystore with alias `reelguard` from the `REELGUARD_KEYSTORE_BASE64` Actions secret and its password from `REELGUARD_KEYSTORE_PASSWORD`. Keep a backup of both for future updates. Android requires the same signing key to install an update over an existing app. Moving from the local debug APK to the GitHub release requires a fresh install.
 
